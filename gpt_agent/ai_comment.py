@@ -1,5 +1,4 @@
 import openai
-
 import os
 from dotenv import load_dotenv
 
@@ -487,60 +486,3 @@ def format_comment_by_sentence(comment: str) -> str:
         formatted += '.'
     return formatted
 
-# 여러 테스트용 메뉴 데이터
-test_menus = [
-    {
-        "menu_name": "고소한 귀리죽",
-        "ingredients": ["귀리", "아몬드", "호두"],
-        "nutrients": {
-            "제공량(g)": 250,
-            "에너지(kcal)": 180,
-            "단백질(g)": 13,
-            "지방(g)": 8,
-            "식이섬유(g)": 6,
-            "비타민 B6(mg)": 0.5
-        }
-    },
-    {
-        "menu_name": "브로콜리 닭가슴살 샐러드",
-        "ingredients": ["브로콜리", "닭가슴살", "방울토마토", "올리브오일"],
-        "nutrients": {
-            "제공량(g)": 200,
-            "에너지(kcal)": 150,
-            "단백질(g)": 25,
-            "지방(g)": 5,
-            "식이섬유(g)": 4,
-            "비타민 C(mg)": 100
-        }
-    },
-    {
-        "menu_name": "시금치 두부무침",
-        "ingredients": ["시금치", "두부", "참기름"],
-        "nutrients": {
-            "제공량(g)": 180,
-            "에너지(kcal)": 110,
-            "단백질(g)": 9,
-            "지방(g)": 3,
-            "식이섬유(g)": 3,
-            "비타민 K(μg)": 180
-        }
-    }
-]
-
-# 결과 저장 리스트
-results = []
-
-# 각 메뉴에 대해 코멘트 생성
-for menu in test_menus:
-    comment = generate_comment(menu["menu_name"], menu["ingredients"], menu["nutrients"])
-    formatted = format_comment_by_sentence(comment)  # ← 여기서 문장 단위 줄바꿈
-    results.append({
-        "메뉴명": menu["menu_name"],
-        "코멘트": formatted
-    })
-
-# 결과 출력
-for r in results:
-    print(f"📌 {r['메뉴명']}")
-    print(r["코멘트"])
-    print("="*50)
