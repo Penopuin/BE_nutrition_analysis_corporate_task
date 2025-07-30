@@ -34,7 +34,7 @@ def get_food_by_name(food_name):
 def search_food_by_name():
     name =  request.args.get('name')
     if not name:
-        return jsonify({'error':'Query parameter "naeme" is required'}), 400
+        return jsonify({'error':'Query parameter "name" is required'}), 400
     
     # 대소문자 구분 없이 부분 일치 검색
     foods = FoodNutritionDB.query.filter(

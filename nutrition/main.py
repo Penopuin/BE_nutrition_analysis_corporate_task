@@ -7,6 +7,7 @@ from routes.food import food_bp
 from routes.raw import raw_bp
 from routes.standard import standard_bp
 from routes.ingredients import ingredients_bp
+from routes.search import search_bp
 
 # Flask 앱 초기화
 app = Flask(__name__)
@@ -26,6 +27,7 @@ app.register_blueprint(food_bp)
 app.register_blueprint(raw_bp)
 app.register_blueprint(standard_bp)
 app.register_blueprint(ingredients_bp)
+app.register_blueprint(search_bp)
 
 @app.route('/')
 def home():
@@ -33,4 +35,4 @@ def home():
 
 # 로컬에서만 일단 실행
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5001)
