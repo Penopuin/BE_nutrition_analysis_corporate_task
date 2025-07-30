@@ -8,6 +8,7 @@ from routes.raw import raw_bp
 from routes.standard import standard_bp
 from routes.ingredients import ingredients_bp
 from routes.search import search_bp
+from gpt import gpt_bp
 
 # Flask 앱 초기화
 app = Flask(__name__)
@@ -28,6 +29,7 @@ app.register_blueprint(raw_bp)
 app.register_blueprint(standard_bp)
 app.register_blueprint(ingredients_bp)
 app.register_blueprint(search_bp)
+app.register_blueprint(gpt_bp)
 
 @app.route('/')
 def home():
