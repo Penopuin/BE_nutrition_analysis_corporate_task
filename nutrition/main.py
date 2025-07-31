@@ -8,7 +8,7 @@ from routes.raw import raw_bp
 from routes.standard import standard_bp
 from routes.ingredients import ingredients_bp
 from routes.search import search_bp
-from gpt import gpt_bp
+from gpt_agent.gpt import gpt_bp
 
 # Flask 앱 초기화
 app = Flask(__name__)

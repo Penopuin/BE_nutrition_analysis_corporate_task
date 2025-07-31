@@ -424,41 +424,38 @@ def deduplicate_tags(tags: list) -> list:
 def build_prompt(menu_name: str, ingredients: list, nutrients: dict, emphasis_tags: list) -> str:
     ingredient_text = ", ".join(ingredients)
     nutrient_text = "\n".join([f"- {k}: {v}" for k, v in nutrients.items()])
-
-    emphasis_text = (
-        f"이 메뉴는 {', '.join(emphasis_tags)} 특성이 있어요." if emphasis_tags
-        else "이 메뉴는 균형 잡힌 영양 구성을 가지고 있어요."
-    )
-    recommendation = get_recommendation_text(emphasis_tags)
-
-    # 🔁 강조 키워드도 반드시 문장에 자연스럽게 포함하라는 요구사항 추가
-    keyword_instruction = (
-        f"강조 키워드는 다음과 같습니다: {', '.join(emphasis_tags)}.\n"
-        "이 키워드들은 모두 문장 속에 자연스럽게 포함되도록 작성해주세요.\n"
-        if emphasis_tags else ""
-    )
-
-    target_text = f"이러한 특성({', '.join(emphasis_tags)})은 {recommendation}" if recommendation else ""
+    emphasis_text = ", ".join(emphasis_tags) if emphasis_tags else "균형 잡힌 영양 구성"
 
     prompt = f"""
-다음은 메뉴 '{menu_name}'의 정보입니다.
-
-● 주요 원재료: {ingredient_text}
-● 주요 영양성분:
+[메뉴 정보]
+- 메뉴명: {menu_name}
+- 주요 원재료: {ingredient_text}
+- 주요 영양성분:
 {nutrient_text}
 
-{emphasis_text}
-{target_text}
+[영양적 특성]
+- 강조 키워드: {emphasis_text}
 
-이 정보를 바탕으로 다음 조건에 따라 **자연스럽고 신뢰감 있는 건강 코멘트**를 작성해주세요:
+[작성 요청]
+위 정보를 바탕으로 소비자에게 신뢰감을 줄 수 있는 **건강 코멘트**를 작성해주세요.
 
-1. **공백 포함 250자 이상, 300자를 절대 넘기지 않게** 작성합니다.
-2. 코멘트는 **문장 1~2개 이상**으로 구성되며, 같은 음식이어도 **케이스에 따라 문장이 다르게 생성되어야** 합니다.
-3. **원재료 각각의 효능이나 특성을 중심으로** 설명해주세요. (예: 귀리는 콜레스테롤 감소, 브로콜리는 항산화 작용 등)
-4. **영양성분 수치에만 의존하지 말고**, 소비자가 알기 어려운 효능이나 기능을 포함해주세요.
-5. 메뉴명이나 원재료 키워드를 문장 안에 자연스럽게 포함시켜주세요.
-6. 톤은 친절하고 설명 중심이며, **과도한 광고 문구는 피하고 신뢰감 있는 문장으로** 작성해주세요.
-7. {keyword_instruction.strip()}
+[작성 조건]
+1. 공백 포함 **250자 이상, 300자 이내**로 작성해주세요.
+2. 문장은 **1~2문장 이내**로 구성하되, 각 문장은 자연스럽게 연결되도록 작성해주세요.
+3. **원재료 각각의 대표 효능이나 기능을 중심으로 설명**해주세요.
+   예: 귀리는 콜레스테롤 개선, 브로콜리는 항산화 효과, 닭가슴살은 고단백 식품 등
+4. **영양성분 수치 자체에 집중하지 말고**, 일반 소비자가 알기 어려운 **기능 중심**으로 작성해주세요.
+5. 사용할 수 있는 강조 키워드는 다음과 같습니다:
+   {emphasis_text}
+6. 강조 키워드들은 **문장 속에 자연스럽게 포함만 시켜주세요. 절대 별도로 한 문장에 몰아서 나열하지 마세요.**
+   - 강조 키워드: {', '.join(emphasis_tags)}
+7. {emphasis_text} 목록에 없는 유사 키워드나 의미가 비슷한 표현도 모두 사용 금지입니다.
+8. **광고 문구는 절대 사용하지 마세요. 설명 중심의 신뢰감 있는 문장**으로 작성해주세요.
+
+[작성 예시]
+예시1) 닭가슴살은 단백질이 풍부하여 운동 후 회복에 도움이 됩니다. 또한 무지방 식단으로 지방 섭취를 줄이고 싶은 분들께도 적합해요.
+
+예시2) 브로콜리와 방울토마토는 항산화 성분이 풍부해 면역력 강화에 도움이 됩니다. 이 샐러드는 고단백, 무나트륨 식단으로 건강한 식사를 원하시는 분들께 추천드려요.
 """.strip()
 
     return prompt

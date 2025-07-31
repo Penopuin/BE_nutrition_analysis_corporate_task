@@ -1,3 +1,12 @@
+import openai
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+GPT_KEY = os.getenv('GPT_KEY')
+openai.api_key = GPT_KEY  # 실제 사용 시 보안 관리 필요
+
 from flask import Blueprint, request, jsonify
 from gpt_agent.ai_comment import generate_comment, format_comment_by_sentence
 
