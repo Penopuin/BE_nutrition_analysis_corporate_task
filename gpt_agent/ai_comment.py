@@ -427,39 +427,37 @@ def build_prompt(menu_name: str, ingredients: list, nutrients: dict, emphasis_ta
     emphasis_text = ", ".join(emphasis_tags) if emphasis_tags else "균형 잡힌 영양 구성"
 
     prompt = f"""
-[메뉴 정보]
-- 메뉴명: {menu_name}
-- 주요 원재료: {ingredient_text}
-- 주요 영양성분:
-{nutrient_text}
+    [메뉴 정보]
+    - 메뉴명: {menu_name}
+    - 주요 원재료: {ingredient_text}
+    - 주요 영양성분:
+    {nutrient_text}
 
-[영양적 특성]
-- 강조 키워드: {emphasis_text}
+    [영양적 특성]
+    - 강조 키워드: {emphasis_text}
 
-[작성 요청]
-위 정보를 바탕으로 소비자에게 신뢰감을 줄 수 있는 **건강 코멘트**를 작성해주세요.
+    [작성 요청]
+    위 정보를 바탕으로 작성해주세요:
 
-[작성 조건]
-1. 공백 포함 **250자 이상, 300자 이내**로 작성해주세요.
-2. 문장은 **1~2문장 이내**로 구성하되, 각 문장은 자연스럽게 연결되도록 작성해주세요.
-3. **원재료 각각의 대표 효능이나 기능을 중심으로 설명**해주세요.
-   예: 귀리는 콜레스테롤 개선, 브로콜리는 항산화 효과, 닭가슴살은 고단백 식품 등
-4. **영양성분 수치 자체에 집중하지 말고**, 일반 소비자가 알기 어려운 **기능 중심**으로 작성해주세요.
-5. 사용할 수 있는 강조 키워드는 다음과 같습니다:
-   {emphasis_text}
-6. 강조 키워드들은 **문장 속에 자연스럽게 포함만 시켜주세요. 절대 별도로 한 문장에 몰아서 나열하지 마세요.**
-   - 강조 키워드: {', '.join(emphasis_tags)}
-7. {emphasis_text} 목록에 없는 유사 키워드나 의미가 비슷한 표현도 모두 사용 금지입니다.
-8. **광고 문구는 절대 사용하지 마세요. 설명 중심의 신뢰감 있는 문장**으로 작성해주세요.
+    ---
 
-[작성 예시]
-예시1) 닭가슴살은 단백질이 풍부하여 운동 후 회복에 도움이 됩니다. 또한 무지방 식단으로 지방 섭취를 줄이고 싶은 분들께도 적합해요.
+     [AI 코멘트]
+    - 소비자에게 신뢰감을 줄 수 있는 건강 정보를 작성해주세요.
+    - 반드시 공백 포함 **150자 이상 200자 미만**으로 작성해주세요. 이를 초과하면 무조건 감점입니다.
+    - 총 문장은 4개 이내로 작성하고, 각 문장은 **너무 길거나 복잡하지 않게** 작성하되, **자연스러운 연결어**를 사용하여 문장 간 흐름을 매끄럽게 유지해주세요.
+    - 문장이 미완성되거나 중간에 끊기면 감점 대상입니다.
+    - **원재료 각각의 대표 효능이나 기능 중심으로 설명**해주세요.
+    - **영양성분 수치 자체는 언급하지 마세요**, 대신 일반 소비자가 알기 어려운 기능성 중심으로 표현하세요.
+    - **광고 문구는 금지**하며, 재료 중심 정보 전달 중심으로 신뢰감을 줄 수 있도록 작성해주세요.
+    - 일반적인 마무리 문장은 절대 작성하지 마세요. 감점 대상입니다.
+    - 반드시 각 재료의 기능 중심 문장만 작성하고, 결론 문장은 생략해주세요.
 
-예시2) 브로콜리와 방울토마토는 항산화 성분이 풍부해 면역력 강화에 도움이 됩니다. 이 샐러드는 고단백, 무나트륨 식단으로 건강한 식사를 원하시는 분들께 추천드려요.
-""".strip()
+
+    ---
+
+    """.strip()
 
     return prompt
-
 
 
 # GPT API 호출
@@ -470,16 +468,15 @@ def generate_comment(menu_name, ingredients, nutrients):
     response = openai.ChatCompletion.create(
         model="gpt-4o",
         messages=[{"role": "user", "content": prompt}],
-        temperature=0.7,
-        max_tokens=300
+        temperature=0.3,
+        max_tokens=150
     )
     return response["choices"][0]["message"]["content"].strip()
 
-# 문장 단위 줄바꿈 포맷팅 함수 (이미 있음)
+# 문장 단위 줄바꿈 포맷팅 함수
 def format_comment_by_sentence(comment: str) -> str:
     sentences = comment.strip().split('. ')
     formatted = '.\n'.join(s.strip() for s in sentences if s)
     if not formatted.endswith('.'):
         formatted += '.'
     return formatted
-
