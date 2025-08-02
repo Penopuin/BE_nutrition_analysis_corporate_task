@@ -103,31 +103,31 @@ ERD 나타낼예정
 
 ## Project Structure
 
-NUTRITION[BE]/
-├── db_model/                         # SQLAlchemy 모델 정의 디렉터리
-│   ├── __init__.py                   # 모델 초기화 및 연결
-│   ├── food_ingredients.py           # 원재료 구성 정보 (예: 메뉴에 포함된 식품)
-│   ├── food_nutrition_db.py          # 식품별 영양성분 DB (가공된 데이터 기준)
-│   ├── menu.py                       # 메뉴 테이블 모델
-│   ├── menu_ingredient.py            # 메뉴-원재료 연결 테이블
-│   ├── raw_food_nutrition.py         # 원시 영양소 수치 원본 (공공데이터 원형)
-│   └── standard_nutrition.py         # 영양 강조 기준 (100g, 100kcal 기준치 저장용)
-│
-├── routes/                           # Flask Blueprint 라우터 정의
-│   ├── __init__.py
-│   ├── food.py                       # 식품 데이터 API (단일 식품, 전체 조회 등)
-│   ├── ingredients.py                # 원재료 관련 API (추가/수정 등)
-│   ├── menu.py                       # 메뉴 CRUD + 분석 API (중심 API)
-│   ├── raw.py                        # 원시 데이터 조회용 API
-│   └── standard.py                   # 기준 영양값 관련 API (강조 기준값 관리 등)
-│
-├── utils/                            # 기능 유틸리티 함수 모음
-│   ├── __init__.py
-│   ├── comment_generator.py          # OpenAI GPT API 기반 AI 코멘트 생성기
-│   ├── emphasis_rules.py             # 강조 조건 판단 (저지방, 고단백 등 rule-based)
-│   └── nutrition_calculator.py       # 메뉴 전체 영양성분 계산기 (g 기준)
-│
-├── .env                              # 환경변수 파일
-├── config.py                         # Flask 앱 설정 (DB URL, GPT 설정 등)
-├── main.py                           # Flask 앱 진입점 (Blueprint 등록, 서버 실행)
+### NUTRITION[BE]/
+    ├── db_model/                         # SQLAlchemy 모델 정의 디렉터리
+    │   ├── __init__.py                   # 모델 초기화 및 연결
+    │   ├── food_ingredients.py           # 원재료 구성 정보 (예: 메뉴에 포함된 식품)
+    │   ├── food_nutrition_db.py          # 식품별 영양성분 DB (가공된 데이터 기준)
+    │   ├── menu.py                       # 메뉴 테이블 모델
+    │   ├── menu_ingredient.py            # 메뉴-원재료 연결 테이블
+    │   ├── raw_food_nutrition.py         # 원시 영양소 수치 원본 (공공데이터 원형)
+    │   └── standard_nutrition.py         # 영양 강조 기준 (100g, 100kcal 기준치 저장용)
+    │
+    ├── routes/                           # Flask Blueprint 라우터 정의
+    │   ├── __init__.py
+    │   ├── food.py                       # 식품 데이터 API (단일 식품, 전체 조회 등)
+    │   ├── ingredients.py                # 원재료 관련 API (추가/수정 등)
+    │   ├── menu.py                       # 메뉴 CRUD + 분석 API (중심 API)
+    │   ├── raw.py                        # 원시 데이터 조회용 API
+    │   └── standard.py                   # 기준 영양값 관련 API (강조 기준값 관리 등)
+    │
+    ├── utils/                            # 기능 유틸리티 함수 모음
+    │   ├── __init__.py
+    │   ├── comment_generator.py          # OpenAI GPT API 기반 AI 코멘트 생성기
+    │   ├── emphasis_rules.py             # 강조 조건 판단 (저지방, 고단백 등 rule-based)
+    │   └── nutrition_calculator.py       # 메뉴 전체 영양성분 계산기 (g 기준)
+    │
+    ├── .env                              # 환경변수 파일
+    ├── config.py                         # Flask 앱 설정 (DB URL, GPT 설정 등)
+    ├── main.py                           # Flask 앱 진입점 (Blueprint 등록, 서버 실행)
 
