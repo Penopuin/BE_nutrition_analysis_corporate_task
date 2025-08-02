@@ -36,8 +36,6 @@
 7. OpenAI GPT 기반 AI 코멘트 생성 기능 통합  
 8. 테스트 및 기능 개선 반복
 
----
-
 ### 📑 주요 API 명세서
 
 || 메서드  | 경로                         | 설명           |
@@ -57,7 +55,7 @@
 
 ## 🎥 DEMO or PRTOTYPE
 
-> (삽입예쩡)
+> (삽입예정)
 
 - Flutter 앱 시연 영상
 - API 호출 흐름
@@ -103,7 +101,8 @@ ERD 나타낼예정
 
 ## Project Structure
 
-### NUTRITION[BE]/
+### 
+    NUTRITION[BE]/
     ├── db_model/                         # SQLAlchemy 모델 정의 디렉터리
     │   ├── __init__.py                   # 모델 초기화 및 연결
     │   ├── food_ingredients.py           # 원재료 구성 정보 (예: 메뉴에 포함된 식품)
