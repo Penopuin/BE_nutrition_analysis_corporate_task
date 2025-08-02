@@ -3,7 +3,8 @@ from .nutrition_calculator import calculate_nutrition
 
 __all__ = [
     "calculate_nutrition",
-    #"check_emphasis",
+    "check_emphasis",
+    "generate_comment"
 ]
 
 def serialize_model(model):
