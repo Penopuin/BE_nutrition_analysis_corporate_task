@@ -16,7 +16,7 @@
 
 ---
 
-## 📂 Documents
+## 🖇️ Documents
 
 ### 🕒 기간
 
@@ -95,12 +95,12 @@ ERD 나타낼 예정
 
 ---
 
-## System Architecture
+## 💻 System Architecture
 나타낼 예정
 
 ---
 
-## Project Structure
+## 📂 Project Structure
 
 ### 
     NUTRITION[BE]/
