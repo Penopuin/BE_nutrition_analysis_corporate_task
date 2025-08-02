@@ -98,9 +98,10 @@ ERD 나타낼예정
 
 ## System Architecture
 그릴예정
+
 ---
 
-## Detailed Structure
+## Project Structure
 
 NUTRITION[BE]/
 ├── db_model/                         # SQLAlchemy 모델 정의 디렉터리
