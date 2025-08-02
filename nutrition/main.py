@@ -7,9 +7,8 @@ from routes.food import food_bp
 from routes.raw import raw_bp
 from routes.standard import standard_bp
 from routes.ingredients import ingredients_bp
-from routes.search import search_bp
-from gpt_agent.gpt import gpt_bp
 from routes.menu import menu_bp
+from flask import jsonify
 
 # Flask 앱 초기화
 app = Flask(__name__)
@@ -29,14 +28,15 @@ app.register_blueprint(food_bp)
 app.register_blueprint(raw_bp)
 app.register_blueprint(standard_bp)
 app.register_blueprint(ingredients_bp)
-app.register_blueprint(search_bp)
-app.register_blueprint(gpt_bp)
 app.register_blueprint(menu_bp)
 
 @app.route('/')
 def home():
     return 'nutrition api ok'
+@app.errorhandler(403)
+def forbidden_error(e):
+    return jsonify({'error': '403 Forbidden', 'detail': str(e)}), 403
 
 # 로컬에서만 일단 실행
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5001)
+    app.run(debug=True)
