@@ -97,7 +97,7 @@ ERD 나타낼 예정
 
 ## 💻 System Architecture
 
-
+<img width="1155" height="774" alt="Image" src="https://github.com/user-attachments/assets/56ba7aca-94fb-4eb7-826d-e480a8c53856" />
 
 ---
 
